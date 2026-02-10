@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
-public class VideoJobService {
+public class ConversionJobService {
 
     private final VideoStorageService storageService;
     private final ConversionJobRepository repository;

@@ -16,7 +16,7 @@ public class VideoCutterService {
     private final ConversionJobRepository conversionJobRepository;
 
     @Async("asyncCutterExecutor")
-    public CompletableFuture<ConversionJob> conversionJob(ConversionJob conversionJob) throws InterruptedException{
+    public CompletableFuture<ConversionJob> cut(ConversionJob conversionJob) throws InterruptedException{
 
         conversionJob.setStatus(JobStatus.PROCESSING);
         conversionJobRepository.save(conversionJob);
