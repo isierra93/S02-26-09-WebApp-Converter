@@ -5,13 +5,13 @@
   --foreground: #171717;
 }
 
-
+/*saco el select en toda la pagina*/
 * {
     user-select: none;
 }
 
 
-
+/*animacion de card principal*/
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -22,10 +22,77 @@
     transform: translateY(0) scale(1);
   }
 }
-
 .animate-in {
   animation: fadeInUp 0.7s ease-out forwards;
 }
 .animate-in-delay {
   animation: fadeInUp 0.7s ease-out 0.2s forwards;
+}
+
+
+/*carrusel*/
+
+
+/*saco el scroll*/
+::-webkit-scrollbar{
+  display: none;
+}
+html {
+  scrollbar-width: none;
+}
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* contenedor */
+.animate-container {
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+/* pista que se mueve */
+.animate-track {
+  display: flex;
+  width: max-content;
+  animation: scroll linear infinite;
+}
+
+
+@media (max-width: 640px) {
+  .animate-container {
+    height: 70px;
+    width: 100%;
+  }
+
+  .animate-track {
+    animation-duration: 10s;
+  }
+}
+
+/*media*/
+@media (min-width: 641px) and (max-width: 1023px) {
+  .animate-container {
+    height: 105px;
+    width: 100%;
+  }
+
+  .animate-track {
+    animation-duration: 22s;
+  }
+}
+
+/*desktop */
+@media (min-width: 1024px) {
+  .animate-container {
+    height: 110px;
+  }
+
+  .animate-track {
+    animation-duration: 28s;
+  }
 }
