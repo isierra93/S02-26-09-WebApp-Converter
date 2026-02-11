@@ -26,4 +26,9 @@ public class ConversionJobService {
 
         return savedJob;
     }
+    public ConversionJob getJob(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Video no encontrado"));
+    }
+
 }
