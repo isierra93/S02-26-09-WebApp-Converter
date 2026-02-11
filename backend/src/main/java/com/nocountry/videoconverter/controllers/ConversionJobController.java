@@ -25,4 +25,11 @@ public class ConversionJobController {
 
         return ResponseEntity.ok(video);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ConversionJob> getStatus(@PathVariable String id) {
+        ConversionJob job = conversionJobService.getJob(id);
+        return ResponseEntity.ok(job);
+    }
+
 }
