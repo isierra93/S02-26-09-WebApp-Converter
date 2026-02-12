@@ -1,6 +1,8 @@
 package com.nocountry.videoconverter.controllers;
 
 import com.nocountry.videoconverter.entities.ConversionJob;
+import com.nocountry.videoconverter.exceptions.EmptyFileException;
+import com.nocountry.videoconverter.exceptions.ResourceNotFoundException;
 import com.nocountry.videoconverter.services.ConversionJobService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +20,7 @@ public class ConversionJobController {
     public ResponseEntity<?> uploadVideo(@RequestParam("file") MultipartFile file) throws Exception {
 
         if (file == null || file.isEmpty()) {
-            return ResponseEntity.badRequest().body("No se recibió ningún archivo");
+            throw new EmptyFileException("No se recibió ningún archivo.");
         }
 
         ConversionJob video = conversionJobService.createJob(file);
@@ -29,6 +31,9 @@ public class ConversionJobController {
     @GetMapping("/{id}")
     public ResponseEntity<ConversionJob> getStatus(@PathVariable String id) {
         ConversionJob job = conversionJobService.getJob(id);
+        if (job == null){
+            throw new ResourceNotFoundException("No se encontró un archivo con el id: " + id + " .");
+        }
         return ResponseEntity.ok(job);
     }
 
