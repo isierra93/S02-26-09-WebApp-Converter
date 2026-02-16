@@ -17,7 +17,7 @@ export default function Carrusel() {
                     <Item>Ahorrá tiempo</Item>
                     <Item>
                         Un video <ArrowRight size={16} />{" "}
-                        varios shorts
+                        Varios shorts
                     </Item>
                 </div>
 
@@ -29,7 +29,7 @@ export default function Carrusel() {
                     <Item>Ahorrá tiempo</Item>
                     <Item>
                         Un video <ArrowRight size={16} />{" "}
-                        varios shorts
+                        Varios shorts
                     </Item>
                 </div>
             </div>
