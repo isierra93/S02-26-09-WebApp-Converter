@@ -7,7 +7,7 @@ export default function AppInstructions() {
                 </h2>
                 <div className="mt-8 space-y-8">
                     <div className="flex items-start gap-6">
-                        <span className="w-12 h-12 flex items-center justify-center rounded-full bg-white text-[#433BFF] text-xl font-bold shrink-0">
+                        <span className="w-12 h-12 flex items-center justify-center rounded-full bg-[#2F27CE] text-white text-xl font-bold shrink-0">
                             1
                         </span>
                         <div>
@@ -25,7 +25,7 @@ export default function AppInstructions() {
                     </div>
 
                     <div className="flex items-start gap-6">
-                        <span className="w-12 h-12 flex items-center justify-center rounded-full bg-white text-[#433BFF] text-xl font-bold fshrink-0">
+                        <span className="w-12 h-12 flex items-center justify-center rounded-full bg-[#2F27CE] text-white text-xl font-bold shrink-0">
                             2
                         </span>
                         <div>
@@ -46,7 +46,7 @@ export default function AppInstructions() {
                     </div>
 
                     <div className="flex items-start gap-6">
-                        <span className="w-12 h-12 flex items-center justify-center rounded-full bg-white text-[#433BFF] text-xl font-bold shrink-0">
+                        <span className="w-12 h-12 flex items-center justify-center rounded-full bg-[#2F27CE] text-white text-xl font-bold shrink-0">
                             3
                         </span>
                         <div>
@@ -66,7 +66,7 @@ export default function AppInstructions() {
                     </div>
 
                     <div className="flex items-start gap-6">
-                        <span className="w-12 h-12 flex items-center justify-center rounded-full bg-white text-[#433BFF] text-xl font-bold shrink-0">
+                        <span className="w-12 h-12 flex items-center justify-center rounded-full bg-[#2F27CE] text-white text-xl font-bold shrink-0">
                             4
                         </span>
                         <div>
