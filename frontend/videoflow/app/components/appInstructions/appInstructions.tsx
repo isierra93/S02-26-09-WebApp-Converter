@@ -1,7 +1,7 @@
 export default function AppInstructions() {
     return (
-        <section className="px-4 sm:px-8 md:px-16 lg:px-24 mt-24 mb-24">
-            <div className="bg-[#433BFF] rounded-3xl p-8 sm:p-10 md:p-12 lg:p-16 text-white">
+        <section className="mt-[90px] mb-[77px] mb-24 mx-[50px] md:mx-[100px] lg:mx-[187px] xl:mx-[350px]">
+            <div className="bg-[#433BFF] rounded-3xl p-8 sm:p-10 md:p-12 lg:p-16 text-white  ">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8">
                     ¿Cómo funciona?
                 </h2>

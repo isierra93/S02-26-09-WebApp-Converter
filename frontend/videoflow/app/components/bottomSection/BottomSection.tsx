@@ -4,9 +4,9 @@ import PrimaryButton from "../PrimaryButton/PrimaryButton";
 
 export default function BottomSection() {
     return (
-        <section className="bg-[#DEDCFF] mt-12 mb-12">
+        <section className="bg-[#DEDCFF] mt-[80px] mb-[80px]">
             {/* Layout móvil: < 768px */}
-            <div className="md:mx-20 md:hidden sm:px-6 py-6 sm:py-8 space-y-4  sm:space-y-4  md:max-w-125.5 lg:max-w-125.5 xl:max-w-125.5 2xl:max-w-125.5 ">
+            <div className="mx-[50px] md:mx-[100px] lg:mx-[187px] xl:mx-[350px] md:hidden sm:px-6 py-[60px] md:py-[80px] sm:py-8 space-y-4  sm:space-y-4  md:max-w-125.5 lg:max-w-125.5 xl:max-w-125.5 2xl:max-w-125.5 ">
                 <h2 className="flex md:justify-center justify-start mx-12.5 text-xl sm:text-2xl font-bold text-black leading-tight ">
                     Listo para crear tu primer short?
                 </h2>
@@ -32,7 +32,7 @@ export default function BottomSection() {
             </div>
 
             {/* Layout tablet/desktop: >= 768px */}
-            <div className="hidden md:grid grid-cols-2 gap-6 lg:gap-8 xl:gap-12 items-center md:mx-20 lg:mx-25 xl:mx-31.75  lg:px-12 xl:px-20 2xl:px-32 py-8 md:py-10 lg:py-12">
+            <div className="hidden md:grid grid-cols-2 gap-6 lg:gap-8 xl:gap-12 items-center mx-[50px] md:mx-[100px] lg:mx-[187px] xl:mx-[350px]  lg:px-[80px] xl:px-[80px] 2xl:px-32 py-8 md:py-10 lg:py-12">
                 <div className="space-y-3 md:space-y-4 lg:space-y-5 xl:space-y-6">
                     <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-black leading-tight">
                         Listo para crear tu primer short?
@@ -49,7 +49,7 @@ export default function BottomSection() {
                         alt="Vista previa de video"
                         width={502}
                         height={502}
-                        className="w-full max-w-[502px] md:max-w-[502px] lg:max-w-[502px] xl:max-w-[502px] 2xl:max-w-[502px] h-auto rounded-2xl shadow-lg object-cover"
+                        className="w-full max-w-125.5 md:max-w-125.5 lg:max-w-125.5 xl:max-w-125.5 2xl:max-w-125.5 h-auto rounded-2xl shadow-lg object-cover"
                     />
                 </div>
             </div>
