@@ -38,8 +38,6 @@ El proyecto está construido con una arquitectura moderna separando el Backend d
 | Hector Duarte | Frontend Developer | [Perfil](https://www.linkedin.com/in/hector-duarte) |
 | Iván Sierra | Backend Developer | [Perfil](https://linkedin.com/in/isierra93) |
 | Martin Rioja | Backend Developer | [Perfil](https://www.linkedin.com/in/martinriojac/) |
-| Compañero 3 | Backend Developer | [Perfil](https://linkedin.com/in/usuario) |
-| Compañero 4 | QA / Tester | [Perfil](https://linkedin.com/in/usuario) |
 
 ---
 
