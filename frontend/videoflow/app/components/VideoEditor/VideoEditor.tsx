@@ -106,10 +106,11 @@ export default function VideoEditor({
     }, [dragging, start, end]);
 
     return (
-        <div className="w-178 mx-auto mt-10  bg-[#F2F2F7] pb-8 rounded-2xl  border-[0.25px] border-gray-300/90 shadow-[0px_4px_17.6px_0px_#0000001A]">
+        <div className="w-full px-[20px] sm:px-[58px] md:px-[100px] mt-10 mb-[73px] flex justify-center">
+        <div className="w-full max-w-[712px] mx-auto bg-[#F2F2F7] pb-8 rounded-2xl border-[0.25px] border-gray-300/90 shadow-[0px_4px_17.6px_0px_#0000001A]">
             <video
                 ref={originalRef}
-                className="w-178 rounded-tr-2xl rounded-tl-2xl"
+                className="w-full rounded-tr-2xl rounded-tl-2xl"
                 src={videoUrl}
                 onLoadedMetadata={(e) =>
                     setDuration(e.currentTarget.duration)
@@ -130,6 +131,7 @@ export default function VideoEditor({
                 currentTime={currentTime}
                 onGenerate={onGenerate}
             />
+        </div>
         </div>
     );
 }
