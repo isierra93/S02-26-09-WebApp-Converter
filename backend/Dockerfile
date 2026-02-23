@@ -1,17 +1,39 @@
-# 1. Usamos la imagen base
+# ==========================================
+# 1. Etapa de Construcción (Builder)
+# ==========================================
+# Usamos una imagen con Maven y el JDK 25 para poder compilar
+FROM maven:3.9-eclipse-temurin-25 AS builder
+
+WORKDIR /build
+
+# Copiamos el pom.xml y descargamos dependencias (optimiza el caché de Docker)
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copiamos el código fuente del convertidor
+COPY src ./src
+
+# Hacemos el clean package ignorando los tests para agilizar el proceso
+RUN mvn clean package -DskipTests
+
+# ==========================================
+# 2. Etapa de Ejecución (Runner)
+# ==========================================
+# Usamos una imagen base súper ligera
 FROM eclipse-temurin:25-jre-alpine
 
-# 2. Instalamos FFmpeg dentro del contenedor
-RUN apk update && apk add --no-cache ffmpeg
+WORKDIR /app
 
-# 3. Verificamos que se instaló bien
-RUN ffmpeg -version
+# Instalamos FFmpeg y verificamos que se instaló bien
+RUN apk update && \
+    apk add --no-cache ffmpeg && \
+    ffmpeg -version
 
-# 4. Copiamos el .jar compilado al contenedor
-COPY target/*.jar app.jar
+# Copiamos el .jar generado en la Etapa 1 a esta imagen final
+COPY --from=builder /build/target/*.jar app.jar
 
-# 5. Creamos las carpetas que usa la app
+# Creamos las carpetas que usa la app
 RUN mkdir -p /videos /videos_procesados
 
-# 6. Comando para arrancar la app
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+# Comando para arrancar la app
+ENTRYPOINT ["java", "-jar", "app.jar"]
