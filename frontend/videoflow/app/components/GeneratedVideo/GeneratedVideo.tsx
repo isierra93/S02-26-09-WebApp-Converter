@@ -1,7 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StepIcon from "../UI/icons/StepIcon";
 import Check from "../UI/icons/check";
+
+type Props = {
+    onGenerate: () => void;
+};
 
 const steps = [
     "Analizando el contenido del video",
@@ -12,9 +16,37 @@ const steps = [
     "Finalizando tu corto",
 ];
 
-export default function GeneratedVideo() {
+export default function GeneratedVideo({ onGenerate }: Props) {
     const [progress, setProgress] = useState(0);
     const [complete, setComplete] = useState(false);
+
+    // Barra de progreso
+    useEffect(() => {
+        let value = 0;
+
+        const interval = setInterval(() => {
+            value += 5;
+            setProgress(value);
+
+            if (value >= 100) {
+                clearInterval(interval);
+                setComplete(true);
+            }
+        }, 200);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    
+    useEffect(() => {
+        if (complete) {
+            const timer = setTimeout(() => {
+                onGenerate();
+            }, 500);
+
+            return () => clearTimeout(timer);
+        }
+    }, [complete, onGenerate]);
 
     return (
         <div className="mt-[80px] flex w-full justify-center px-[20px] sm:px-[48px] md:px-[156px] lg:px-[364px] xl:px-[364px] 2xl:px-[604px]">
@@ -25,16 +57,13 @@ export default function GeneratedVideo() {
                 <h5 className="my-5 text-center text-[17px] font-semibold text-[#505050]">
                     Solo tomará unos segundos
                 </h5>
-                {/*Barra de progreso*/}
-                <div className="mt-8 w-full px-[30px]">
-                    <div className="rounde-[10px] h-5.5 w-full overflow-hidden rounded-full bg-[#2F27CE] p-1">
-                        <div
-                            className="h-3 rounded-full bg-[#2F27CE] transition-all duration-200"
-                            style={{
-                                width: `${progress}%`,
-                            }}
-                        />
-                    </div>
+
+                {/* Barra de progreso */}
+                <div className="m-auto h-5.5 w-full max-w-md overflow-hidden rounded-full bg-[#FFFFFF] p-1">
+                    <div
+                        className="h-3 rounded-full bg-[#2F27CE] transition-all duration-200"
+                        style={{ width: `${progress}%` }}
+                    />
                 </div>
 
                 <div className="mx-auto mt-5 mb-15 flex h-auto w-full max-w-[327px] flex-col items-start justify-center gap-3 px-4 text-[15px] sm:px-0 sm:text-[17px]">
