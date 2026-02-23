@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db-shortify
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "1234"
+      MYSQL_DATABASE: "db-shortify"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: videoflow-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/videos:/videos
+      - ./backend/videos_procesados:/videos_procesados
+    depends_on:
+      - mysql-db
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/db-shortify?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  frontend:
+    build:
+      context: ./frontend/videoflow
+      dockerfile: Dockerfile
+    container_name: videoflow-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      # TODO: Descomentar y ajustar cuando el frontend necesite conectarse al backend
+      # - VITE_API_URL=http://localhost:8080
+      - NODE_ENV=development
+
+volumes:
+  mysql_data:

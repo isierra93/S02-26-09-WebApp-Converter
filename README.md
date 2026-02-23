@@ -44,27 +44,42 @@ El proyecto está construido con una arquitectura moderna separando el Backend d
 ## 🔧 Instalación y Ejecución Local
 
 ### Prerrequisitos
-* Java JDK instalado.
-* Node.js y npm/pnpm instalados.
+* Docker.
 * Git.
 
 ### 1. Clonar el repositorio
 ```
 git clone https://github.com/tu-usuario/S02-26-09-WebApp-Converter.git
+
+cd S02-26-09-WebApp-Converter
 ```
 
-### 2. Backend (Spring Boot)
-Navega a la carpeta del backend y ejecuta:
-```
-cd backend
-./mvnw spring-boot:run
+## 2. Ejecución
+
+### Con Docker Compose (recomendado)
+
+```bash
+# Levantar MySQL + App
+docker-compose up --build
 ```
 
-### 3. Frontend (Next.js)
-Navega a la carpeta del frontend e instala las dependencias:
-```
-cd frontend/videoflow
-npm install
-npm run dev
+Esto levanta:
+- **mysql-db-shortify** en el puerto `3306`
+- **videoflow-backend** en el puerto `8080`
+- **videoflow-frontend** en el puerto `3000`
+
+### Sin Docker (local)
+
+1. Tener MySQL corriendo en `localhost:3306` con una base de datos llamada `db-shortify`.
+2. Tener FFmpeg instalado y accesible desde la terminal.
+3. Tener NodeJS 20 o superior instalado.
+4. Tener Maven instalado.
+5. Ejecutar:
+
+```bash
+./frontend/videoflow pnpm install
+./frontend/videoflow pnpm run dev
+
+./backend ./mvnw spring-boot:run
 ```
 
