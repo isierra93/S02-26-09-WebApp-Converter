@@ -17,34 +17,39 @@ export default function GeneratedVideo() {
     const [complete, setComplete] = useState(false);
 
     return (
-        <div className="w-178 h-115.5 mx-auto mt-10 bg-[#F2F2F7] pb-8 rounded-2xl text-center  border-[0.25px] border-gray-300/90 shadow-[0px_4px_17.6px_0px_#0000001A]">
-            <h3 className="text-center text-[#000000] font-semibold text-[21px] my-8">
-                Creando tu corto
-            </h3>
-            <h5 className="text-center text-[#505050] font-semibold text-[17px] my-5">
-                Solo tomará unos segundos
-            </h5>
-            <div className="w-119 mx-auto mt-8 h-5.5  p-1 rounde-[10px] bg-[#FFFFFF] rounded-full overflow-hidden">
-                <div
-                    className="h-3 rounded-full bg-[#2F27CE] transition-all duration-200"
-                    style={{
-                        width: `${progress}%`,
-                    }}
-                />
-            </div>
-
-            <div className="flex flex-col gap-3 justify-center items-start w-81.75 h-61 mx-auto mb-15 mt-5 text-[17px]">
-                {steps.map((text, index) => (
-                    <div
-                        key={index}
-                        className="flex justify-between items-center text-[#505050]"
-                    >
-                        <p className="text-[#505050]">
-                            {complete ? <Check /> : <StepIcon />}
-                        </p>
-                        <p>{text}</p>
+        <div className="mt-[80px] flex w-full justify-center px-[20px] sm:px-[48px] md:px-[156px] lg:px-[364px] xl:px-[364px] 2xl:px-[604px]">
+            <div className="w-full rounded-2xl border-[0.25px] border-gray-300/90 bg-[#F2F2F7] text-center shadow-[0px_4px_17.6px_0px_#0000001A] sm:w-[720px] md:w-[720px]">
+                <h3 className="my-8 text-center text-[21px] font-semibold text-[#000000]">
+                    Creando tu corto
+                </h3>
+                <h5 className="my-5 text-center text-[17px] font-semibold text-[#505050]">
+                    Solo tomará unos segundos
+                </h5>
+                {/*Barra de progreso*/}
+                <div className="mt-8 w-full px-[30px]">
+                    <div className="rounde-[10px] h-5.5 w-full overflow-hidden rounded-full bg-[#2F27CE] p-1">
+                        <div
+                            className="h-3 rounded-full bg-[#2F27CE] transition-all duration-200"
+                            style={{
+                                width: `${progress}%`,
+                            }}
+                        />
                     </div>
-                ))}
+                </div>
+
+                <div className="mx-auto mt-5 mb-15 flex h-auto w-full max-w-[327px] flex-col items-start justify-center gap-3 px-4 text-[15px] sm:px-0 sm:text-[17px]">
+                    {steps.map((text, index) => (
+                        <div
+                            key={index}
+                            className="flex items-center gap-2 text-[#505050]"
+                        >
+                            <p className="shrink-0 text-[#505050]">
+                                {complete ? <Check /> : <StepIcon />}
+                            </p>
+                            <p className="text-left">{text}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

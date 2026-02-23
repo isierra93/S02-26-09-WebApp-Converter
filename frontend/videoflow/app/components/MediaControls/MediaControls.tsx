@@ -67,21 +67,21 @@ export default function MediaControls({
             </div>
 
             {/*barra de tiempo*/}
-            <div className="w-178 flex flex-col gap-2 mb-5">
-                <div className="w-166.5 h-2.25 rounded-full bg-[#433BFF66] m-auto mt-1 relative overflow-hidden">
+            <div className="w-full flex flex-col gap-2 mb-5 px-4 sm:px-6">
+                <div className="w-full h-2.25 rounded-full bg-[#433BFF66] m-auto mt-1 relative overflow-hidden">
                     <div
                         className="h-full bg-[#2F27CE] transition-all duration-200"
                         style={{ width: `${progress}%` }}
                     />
                 </div>
-                <div className="w-166.5 flex justify-between items-center  mt-0 text-[14px] m-auto ">
+                <div className="w-full flex justify-between items-center mt-0 text-[14px]">
                     <p>{formatTime(currentTime)}</p>
                     <p>{formatTime(duration)}</p>
                 </div>
             </div>
             {/*Barra decorte*/}
-            <div className="w-178 flex flex-col gap-2 mt-5">
-                <div className="w-166.5 flex justify-between items-center mt-0 text-[14px] m-auto pb-2">
+            <div className="w-full flex flex-col gap-2 mt-5 px-4 sm:px-6">
+                <div className="w-full flex justify-between items-center mt-0 text-[14px] pb-2">
                     <p className="text-[#000000] flex justify-center items-center gap-2">
                         <ScissorsIcon />
                         Seleccionar fragmento
@@ -89,16 +89,16 @@ export default function MediaControls({
 
                     <p>0:00 seleccionado</p>
                 </div>
-                <div className="relative flex items-center w-166.5 h-3.75 m-auto ">
+                <div className="relative flex items-center w-full h-3.75">
                     {/* Barra azul */}
-                    <div className="absolute w-166.5 h-2.25 rounded-full bg-[#2F27CE] "></div>
+                    <div className="absolute w-full h-2.25 rounded-full bg-[#2F27CE]"></div>
                     {/* Círculo izquierdo */}
                     <div className="absolute left-0 w-3.75 h-3.75 border border-[#2F27CE] bg-white rounded-full cursor-pointer"></div>
                     {/* Círculo derecho */}
                     <div className="absolute right-0 w-3.75 h-3.75 border border-[#2F27CE] bg-white rounded-full cursor-pointer"></div>
                 </div>
 
-                <div className="w-166.5 flex justify-between items-center mt-0 text-[14px] m-auto pb-2">
+                <div className="w-full flex justify-between items-center mt-0 text-[14px] pb-2">
                     <p className="text-[#505050]">
                         Comenzar en{" "}
                         <span className="text-[#000000]">
@@ -112,7 +112,7 @@ export default function MediaControls({
                         </span>
                     </p>
                 </div>
-                <div className="w-166.5 flex justify-between items-cente mt-0 m-auto">
+                <div className="w-full flex justify-between items-center mt-0">
                     <button
                         onClick={() => redirect("/")}
                         className="w-17.5 h-10 rounded-xl  text-[#000000] text-sm cursor-pointer hover:bg-[#DEDCFF] hover:text-[#282399]"
