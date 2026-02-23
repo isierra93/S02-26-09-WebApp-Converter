@@ -49,6 +49,7 @@ public class VideoCutterService {
             int exitCode = process.waitFor(); //se espera hasta que acabe
             //0 = bien
             if (exitCode == 0) {
+                System.out.println(outputName);
                 conversionJob.setOutputUrl("/out/" + outputName);
                 conversionJob.setStatus(JobStatus.COMPLETED);
                 System.out.println("Conversión exitosa: " + outputPath);

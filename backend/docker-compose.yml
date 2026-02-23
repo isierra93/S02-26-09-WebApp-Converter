@@ -1,0 +1,36 @@
+# Este docker-compose es solo para desarrollo
+
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db-shortify # Nombre del contenedor de mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "1234"      # Coincide con spring.datasource.password
+      MYSQL_DATABASE: "db-shortify" # Coincide con el final de spring.datasource.url - Nombre de la DB en mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql # Guardado de datos persistente
+
+  video-converter-app:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./videos:/videos
+      - ./videos_procesados:/videos_procesados
+    depends_on:
+      - mysql-db # Levanta la db antes que la app, puede fallar si es mysql tarda la primera vez
+    environment:
+      - SERVER_PORT=8080
+      # Estas variables sobrescriben application.properties automáticamente
+      # En la URL uso 'mysql-db' en vez de 'localhost'
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/db-shortify?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+volumes:
+  mysql_data:
