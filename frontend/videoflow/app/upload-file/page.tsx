@@ -4,6 +4,7 @@ import { useState } from "react";
 import UploadCard from "../components/UploadCard/UploadCard";
 import VideoEditor from "../components/VideoEditor/VideoEditor";
 import GeneratedVideo from "../components/GeneratedVideo/GeneratedVideo";
+import CortoSuccess from "../components/CortoSuccess/CortoSuccess";
 
 const steps = ["Subir", "Seleccionar", "Generar", "Descargar"];
 
@@ -58,7 +59,7 @@ export default function Upload() {
         <>
             {/* Barra de progreso 1, 2, 3, 4 */}
 
-            {currentStep !== 3 && <Timeline currentStep={currentStep} />}
+           <Timeline currentStep={currentStep} />
 
             {currentStep === 1 && (
                 <UploadCard
@@ -79,13 +80,17 @@ export default function Upload() {
             )}
 
             {currentStep === 3 && (
-                <div className="mt-10 text-center text-lg font-semibold">
-                    <GeneratedVideo />
+                <div className="text-center mt-10 text-lg font-semibold">
+                    <GeneratedVideo
+                        onGenerate={() => {
+                            setCurrentStep(4);
+                        }}
+                    />
                 </div>
             )}
             {currentStep === 4 && (
-                <div className="mt-10 text-center text-lg font-semibold">
-                    <p>Descargar terminar!!!</p>
+                <div className="text-center mt-10 text-lg font-semibold">
+                    <CortoSuccess />
                 </div>
             )}
         </>
