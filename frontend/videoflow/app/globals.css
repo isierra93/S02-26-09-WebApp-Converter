@@ -30,9 +30,6 @@
 }
 
 
-/*carrusel*/
-
-
 /*saco el scroll*/
 ::-webkit-scrollbar{
   display: none;
@@ -55,7 +52,7 @@ html {
   margin: 0 auto;
 }
 
-/* pista que se mueve */
+/* carrusel */
 .animate-track {
   display: flex;
   width: max-content;
@@ -70,7 +67,7 @@ html {
   }
 
   .animate-track {
-    animation-duration: 10s;
+    animation-duration: 20s;
   }
 }
 
