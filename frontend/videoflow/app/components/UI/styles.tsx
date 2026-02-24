@@ -1,9 +1,12 @@
 export default function Style() {
     return (
-        <section className="relative w-32 h-44 sm:w-44 sm:h-56 md:w-50 md:h-64 lg:w-82 lg:h-105 shrink-0">
-            <div className="absolute z-10 top-0 right-0 w-28 h-38 sm:w-36 sm:h-46 md:w-40 md:h-52 lg:w-67 lg:h-93 rounded-xl lg:rounded-[30px] opacity-0 animate-in bg-[#DEDCFF] bg-[url('/Bg-card.png')] bg-cover bg-top bg-no-repeat" />
+        <>
+            <section className="relative h-44 w-32 shrink-0 sm:h-56 sm:w-44 md:h-64 md:w-50 lg:h-105 lg:w-82 my-10">
+                <div className="animate-in absolute top-0 right-0 z-10 h-38 w-28 rounded-xl bg-[#DEDCFF] bg-[url('/Bg-card.png')] bg-cover bg-top bg-no-repeat opacity-0 sm:h-46 sm:w-36 md:h-52 md:w-40 lg:h-93 lg:w-67 lg:rounded-[30px]" />
 
-            <div className="absolute bottom-2 -left-2 sm:bottom-4 sm:-left-4 md:bottom-4 md:-left-4 lg:bottom-0 lg:-left-6 w-14 h-14 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-35 lg:h-35 bg-[#433BFF66] rounded-xl opacity-0 animate-in-delay" />
-        </section>
+                <div className="animate-in-delay absolute right-16 bottom-1 h-16 w-16 rounded-xl bg-[#433BFF66] opacity-0 sm:right-23 sm:bottom-4 sm:h-18 sm:w-18 md:right-26 md:bottom-4 md:h-20 md:w-20 lg:right-39 lg:bottom-0 lg:h-35 lg:w-35" />
+            </section>
+           
+        </>
     );
 }
