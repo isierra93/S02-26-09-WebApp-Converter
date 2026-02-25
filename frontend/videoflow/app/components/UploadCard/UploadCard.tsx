@@ -1,5 +1,5 @@
 "use client";
-
+import { uploadVideo } from "@/app/services/video.service";
 import { useState, useRef, useEffect } from "react";
 import { FileVideoCamera } from "lucide-react";
 import { CloudUpload } from "lucide-react";
@@ -7,55 +7,64 @@ import { CloudUpload } from "lucide-react";
 type UploadCardProps = {
     onUploadComplete?: (file: File) => void;
 };
-
 export default function UploadCard({ onUploadComplete }: UploadCardProps) {
     const [file, setFile] = useState<File | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [progress, setProgress] = useState(0);
-    const [status, setStatus] = useState<"idle" | "uploading" | "completed">(
-        "idle"
-    );
-
+    const [status, setStatus] = useState<"idle" | "uploading" | "completed">("idle");
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const completedTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const startUpload = (selectedFile: File) => {
-        setProgress(0);
-        setStatus("uploading");
-
-        intervalRef.current = setInterval(() => {
-            setProgress((prev) => {
-                const next = prev + 5;
-
-                if (next >= 100) {
-                    clearInterval(intervalRef.current!);
-                    intervalRef.current = null;
-
-                    setStatus("completed");
-
-                    //se rendicciona
-                    completedTimeoutRef.current = setTimeout(() => {
-                        if (onUploadComplete) {
-                            onUploadComplete(selectedFile);
-                        }
-                    }, 3000);
-
-                    return 100;
-                }
-
-                return next;
-            });
-        }, 150);
-    };
-
-    const handleFile = (selectedFile: File) => {
+    const handleFile = async (selectedFile: File) => {
         if (!selectedFile.type.startsWith("video/")) {
             setError("Formatos compatibles: MP4-WebM-MOV-AVI");
             return;
         }
 
         setFile(selectedFile);
-        startUpload(selectedFile);
+        setProgress(0);
+        setStatus("uploading");
+
+        //animacion
+        intervalRef.current = setInterval(() => {
+            setProgress((prev) => {
+                if (prev >= 90) return prev; 
+                return prev + 5;
+            });
+        }, 150);
+
+        try {
+            const data = await uploadVideo(selectedFile);
+
+            console.log("Respuesta backend:", data);
+
+            // Cuando esta OK
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+
+            setProgress(100);
+            setStatus("completed");
+            //pasamos la confirmacion de la carga 
+            completedTimeoutRef.current = setTimeout(() => {
+                if (onUploadComplete) {
+                    onUploadComplete(selectedFile);
+                }
+            }, 1500);
+        } catch (error: unknown) {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+
+            setStatus("idle");
+            setProgress(0);
+
+            if (error instanceof Error) {
+                setError(error.message);
+            } else {
+                setError("Ocurrió un error inesperado");
+            }
+        }
     };
 
     useEffect(() => {
@@ -68,6 +77,7 @@ export default function UploadCard({ onUploadComplete }: UploadCardProps) {
             }
         };
     }, []);
+    
 
     useEffect(() => {
         if (!error) return;
@@ -79,12 +89,10 @@ export default function UploadCard({ onUploadComplete }: UploadCardProps) {
         return () => clearTimeout(timer);
     }, [error]);
 
-    {
-        ("primera secsion del carga de video responisve");
-    }
+    {/* ("primera sección del carga de video responisve")*/}
     return (
-        <div className="mt-[80px] mb-[73px] w-full px-[20px] sm:px-[48px] md:px-[156px]">
-            <div className="mx-auto flex w-full flex-col gap-7.25 rounded-2xl border border-dashed border-[#797979] bg-[#F2F2F7] px-4 py-8 sm:px-6 lg:h-[357px] lg:w-[712px]">
+        <div className="mt-20 mb-18.25 w-full px-5 sm:px-12 md:px-39">
+            <div className="mx-auto flex w-full flex-col gap-7.25 rounded-2xl border border-dashed border-[#797979] bg-[#F2F2F7] px-4 py-8 sm:px-6 lg:h-89.25 lg:w-178">
                 {status === "idle" && (
                     <p className="m-auto flex h-5.5 w-22.5 items-center justify-center text-center text-gray-500">
                         <CloudUpload className="h-5.5 w-22.5 text-gray-500" />
@@ -136,7 +144,7 @@ export default function UploadCard({ onUploadComplete }: UploadCardProps) {
                         </p>
                         {/*preguntar!!!!*/}
                         {error && (
-                            <p className="m-auto w-80 animate-pulse rounded-md bg-[#2F27CE] p-2 text-center text-sm text-white">
+                            <p className="m-auto w-80 animate-pulse rounded-md bg-red-200 p-2 text-center text-sm text-white">
                                 {error}
                             </p>
                         )}
