@@ -10,9 +10,9 @@ const steps = ["Subir", "Seleccionar", "Generar", "Descargar"];
 
 function Timeline({ currentStep }: { currentStep: number }) {
     return (
-        <div className="mt-[70px] mb-[80px] flex w-full justify-center px-[20px] sm:px-[48px] md:px-[156px] lg:px-0">
+        <div className="mt-17.5 mb-20 flex w-full justify-center px-5 sm:px-12 md:px-39 lg:px-0">
             <div
-                className={`flex h-[66px] w-full max-w-[470px] items-start justify-center gap-2 font-semibold text-black sm:gap-4 md:gap-6`}
+                className={`flex h-16.5 w-full max-w-117.5 items-start justify-center gap-2 font-semibold text-black sm:gap-4 md:gap-6`}
             >
                 {steps.map((label, index) => {
                     const stepNumber = index + 1;
@@ -25,7 +25,7 @@ function Timeline({ currentStep }: { currentStep: number }) {
                                 className={`flex flex-col items-center ${index !== 0 && "text-[#797979]"}`}
                             >
                                 <div
-                                    className={`flex h-[32px] w-[32px] items-center justify-center rounded-full text-sm transition-all duration-300 sm:h-[40px] sm:w-[40px] sm:text-base ${isActive ? "border-4 border-fuchsia-100/60 bg-[#2F27CE] text-white" : isCompleted ? "border border-indigo-600 bg-indigo-100 text-indigo-600" : "border border-gray-300 bg-[#F2F2F7] text-gray-400"} `}
+                                    className={`flex h-8 w-8 items-center justify-center rounded-full text-sm transition-all duration-300 sm:h-10 sm:w-10 sm:text-base ${isActive ? "border-4 border-fuchsia-100/60 bg-[#2F27CE] text-white" : isCompleted ? "border border-indigo-600 bg-indigo-100 text-indigo-600" : "border border-gray-300 bg-[#F2F2F7] text-gray-400"} `}
                                 >
                                     {stepNumber}
                                 </div>
@@ -39,7 +39,7 @@ function Timeline({ currentStep }: { currentStep: number }) {
                             {index < steps.length - 1 && (
                                 <div className="flex items-center">
                                     <div
-                                        className={`mx-1 mt-4 h-[2px] w-[16px] transition-all duration-300 sm:mt-5 sm:w-[30px] md:w-[56px] ${isCompleted ? "bg-indigo-600" : "bg-gray-300"} `}
+                                        className={`mx-1 mt-4 h-0.5 w-4 transition-all duration-300 sm:mt-5 sm:w-7.5 md:w-14 ${isCompleted ? "bg-indigo-600" : "bg-gray-300"} `}
                                     />
                                 </div>
                             )}
