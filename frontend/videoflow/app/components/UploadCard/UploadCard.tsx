@@ -2,7 +2,8 @@
 import { uploadVideo } from "@/app/services/video.service";
 import { useState, useRef, useEffect } from "react";
 import { FileVideoCamera } from "lucide-react";
-import { CloudUpload } from "lucide-react";
+import UploadIcon from "../UI/icons/upload-icon";
+
 
 type UploadCardProps = {
     onUploadComplete?: (file: File) => void;
@@ -35,7 +36,6 @@ export default function UploadCard({ onUploadComplete }: UploadCardProps) {
 
         try {
             const data = await uploadVideo(selectedFile);
-
             console.log("Respuesta backend:", data);
 
             // Cuando esta OK
@@ -89,13 +89,13 @@ export default function UploadCard({ onUploadComplete }: UploadCardProps) {
         return () => clearTimeout(timer);
     }, [error]);
 
-    {/* ("primera sección del carga de video responisve")*/}
+    /* ("primera sección del carga de video responisve")*/
     return (
         <div className="mt-20 mb-18.25 w-full px-5 sm:px-12 md:px-39">
             <div className="mx-auto flex w-full flex-col gap-7.25 rounded-2xl border border-dashed border-[#797979] bg-[#F2F2F7] px-4 py-8 sm:px-6 lg:h-89.25 lg:w-178">
                 {status === "idle" && (
                     <p className="m-auto flex h-5.5 w-22.5 items-center justify-center text-center text-gray-500">
-                        <CloudUpload className="h-5.5 w-22.5 text-gray-500" />
+                        <UploadIcon  />
                     </p>
                 )}
 
@@ -144,7 +144,7 @@ export default function UploadCard({ onUploadComplete }: UploadCardProps) {
                         </p>
                         {/*preguntar!!!!*/}
                         {error && (
-                            <p className="m-auto w-80 animate-pulse rounded-md bg-red-200 p-2 text-center text-sm text-white">
+                            <p className="m-auto w-80 animate-bounce rounded-md bg-red-600/80 p-2 text-center text-sm text-white shadow-sm">
                                 {error}
                             </p>
                         )}

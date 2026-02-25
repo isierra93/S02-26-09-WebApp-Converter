@@ -59,36 +59,30 @@ html {
   animation: scroll linear infinite;
 }
 
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 
 @media (max-width: 640px) {
-  .animate-container {
-    height: 70px;
-    width: 100%;
-  }
-
   .animate-track {
     animation-duration: 20s;
   }
 }
 
-/*media*/
 @media (min-width: 641px) and (max-width: 1023px) {
-  .animate-container {
-    height: 105px;
-    width: 100%;
-  }
-
   .animate-track {
     animation-duration: 22s;
   }
 }
 
-/*desktop */
-@media (min-width: 1024px) {
-  .animate-container {
-    height: 110px;
-  }
 
+@media (min-width: 1024px) {
   .animate-track {
     animation-duration: 28s;
   }

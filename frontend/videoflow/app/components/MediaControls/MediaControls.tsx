@@ -13,6 +13,12 @@ type Props = {
     duration: number;
     currentTime: number;
     onGenerate?: () => void;
+    progressBarRef: React.RefObject<HTMLDivElement | null>;
+    hoverTime: number | null;
+    hoverPosition: number;
+    onSeek: (clientX: number) => void;
+    onHover: (clientX: number) => void;
+    setHoverTime: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
 export default function MediaControls({
@@ -23,10 +29,15 @@ export default function MediaControls({
     duration,
     currentTime,
     onGenerate,
+    hoverTime,
+    hoverPosition,
+    onSeek,
+    onHover,
+    progressBarRef,
+    setHoverTime,
 }: Props) {
-    //duración del video total
-    const progress =
-        duration > 0 ? (currentTime / duration) * 100 : 0;
+        //duración del video total
+    const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
     //duración del video y restante
     const formatTime = (time: number) => {
         const minutes = Math.floor(time / 60);
@@ -36,11 +47,11 @@ export default function MediaControls({
 
     return (
         <>
-            <div className="w-33.5 m-auto flex items-center justify-center gap-6 my-5 p-2">
+            <div className="m-auto my-5 flex w-33.5 items-center justify-center gap-6 p-2">
                 {/*anterior */}
                 <button
                     onClick={onPrev}
-                    className="group transition-transform active:scale-95 cursor-pointer"
+                    className="group cursor-pointer transition-transform active:scale-95"
                 >
                     <PrevIcon />
                 </button>
@@ -48,80 +59,84 @@ export default function MediaControls({
                 {/*play-pause*/}
                 <button
                     onClick={onPlay}
-                    className="group transition-transform active:scale-95 cursor-pointer"
+                    className="group cursor-pointer transition-transform active:scale-95"
                 >
-                    {isPlaying ? (
-                        <PlayIcon />
-                    ) : (
-                        <PauseIcon />
-                    )}
+                    {isPlaying ? <PlayIcon /> : <PauseIcon />}
                 </button>
 
                 {/*siguiente*/}
                 <button
                     onClick={onNext}
-                    className="group transition-transform active:scale-95 cursor-pointer"
+                    className="group cursor-pointer transition-transform active:scale-95"
                 >
                     <NextIcon />
                 </button>
             </div>
 
             {/*barra de tiempo*/}
-            <div className="w-full flex flex-col gap-2 mb-5 px-4 sm:px-6">
-                <div className="w-full h-2.25 rounded-full bg-[#433BFF66] m-auto mt-1 relative overflow-hidden">
+            <div className="mb-5 flex w-full flex-col gap-2 px-4 sm:px-6">
+                <div
+                    ref={progressBarRef}
+                    className="relative m-auto mt-1 h-2.25 w-full cursor-pointer overflow-hidden rounded-full bg-[#433BFF66]"
+                    onClick={(e) => onSeek(e.clientX)}
+                    onMouseMove={(e) => onHover(e.clientX)}
+                    onMouseLeave={() => setHoverTime(null)}
+                    onTouchStart={(e) => onSeek(e.touches[0].clientX)}
+                >
+                {/* Tooltip */}
+                    {hoverTime !== null && (
+                        <div
+                            className="absolute -top-7 -translate-x-1/2 rounded bg-black px-2 py-1 text-xs text-white"
+                            style={{ left: `${hoverPosition}%` }}
+                        >
+                            {formatTime(hoverTime)}
+                        </div>
+                    )}
+
                     <div
                         className="h-full bg-[#2F27CE] transition-all duration-200"
                         style={{ width: `${progress}%` }}
                     />
                 </div>
-                <div className="w-full flex justify-between items-center mt-0 text-[14px]">
+
+                <div className="mt-0 flex w-full items-center justify-between text-[14px]">
                     <p>{formatTime(currentTime)}</p>
                     <p>{formatTime(duration)}</p>
                 </div>
             </div>
             {/*Barra decorte*/}
-            <div className="w-full flex flex-col gap-2 mt-5 px-4 sm:px-6">
-                <div className="w-full flex justify-between items-center mt-0 text-[14px] pb-2">
-                    <p className="text-[#000000] flex justify-center items-center gap-2">
+            <div className="mt-5 flex w-full flex-col gap-2 px-4 sm:px-6">
+                <div className="mt-0 flex w-full items-center justify-between pb-2 text-[14px]">
+                    <p className="flex items-center justify-center gap-2 text-[#000000]">
                         <ScissorsIcon />
                         Seleccionar fragmento
                     </p>
-
                     <p>0:00 seleccionado</p>
                 </div>
-                <div className="relative flex items-center w-full h-3.75">
-                    {/* Barra azul */}
-                    <div className="absolute w-full h-2.25 rounded-full bg-[#2F27CE]"></div>
-                    {/* Círculo izquierdo */}
-                    <div className="absolute left-0 w-3.75 h-3.75 border border-[#2F27CE] bg-white rounded-full cursor-pointer"></div>
-                    {/* Círculo derecho */}
-                    <div className="absolute right-0 w-3.75 h-3.75 border border-[#2F27CE] bg-white rounded-full cursor-pointer"></div>
+                <div className="relative flex h-3.75 w-full items-center">
+                    <div className="absolute h-2.25 w-full rounded-full bg-[#2F27CE]"></div>
+                    <div className="absolute left-0 h-3.75 w-3.75 cursor-pointer rounded-full border border-[#2F27CE] bg-white"></div>
+                    <div className="absolute right-0 h-3.75 w-3.75 cursor-pointer rounded-full border border-[#2F27CE] bg-white"></div>
                 </div>
 
-                <div className="w-full flex justify-between items-center mt-0 text-[14px] pb-2">
+                <div className="mt-0 flex w-full items-center justify-between pb-2 text-[14px]">
                     <p className="text-[#505050]">
-                        Comenzar en{" "}
-                        <span className="text-[#000000]">
-                            0:00
-                        </span>
+                        Comenzar en <span className="text-[#000000]">0:00</span>
                     </p>
                     <p className="text-[#505050]">
-                        Fin{" "}
-                        <span className="text-[#000000]">
-                            0:42
-                        </span>
+                        Fin <span className="text-[#000000]">0:42</span>
                     </p>
                 </div>
-                <div className="w-full flex justify-between items-center mt-0">
+                <div className="mt-0 flex w-full items-center justify-between">
                     <button
                         onClick={() => redirect("/")}
-                        className="w-17.5 h-10 rounded-xl  text-[#000000] text-sm cursor-pointer hover:bg-[#DEDCFF] hover:text-[#282399]"
+                        className="h-10 w-17.5 cursor-pointer rounded-xl text-sm text-[#000000] hover:bg-[#DEDCFF] hover:text-[#282399]"
                     >
                         Atrás
                     </button>
                     <button
                         onClick={onGenerate}
-                        className="w-33 h-12.5 text-[#FAFAFA] font-semibold bg-[#2F27CE] text-sm rounded-[10px] cursor-pointer"
+                        className="h-12.5 w-33 cursor-pointer rounded-[10px] bg-[#2F27CE] text-sm font-semibold text-[#FAFAFA]"
                     >
                         generar corto
                     </button>

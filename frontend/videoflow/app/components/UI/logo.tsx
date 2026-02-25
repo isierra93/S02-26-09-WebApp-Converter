@@ -1,12 +1,13 @@
+import Link from "next/link";
 import CameraIcon from "./icons/CameraIcon";
 
 export default function Logo() {
     return (
-        <div className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3">
             <CameraIcon />
-            <h3 className="text-base font-inter font-semibold text-black">
+            <h3 className="font-inter text-base font-semibold text-black">
                 Shortify
             </h3>
-        </div>
+        </Link>
     );
 }
