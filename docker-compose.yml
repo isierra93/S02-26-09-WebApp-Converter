@@ -21,8 +21,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./backend/videos:/videos
-      - ./backend/videos_procesados:/videos_procesados
+      - ./backend/videos:/app/videos
+      - ./backend/videos_procesados:/app/videos_procesados
     depends_on:
       - mysql-db
     environment:
