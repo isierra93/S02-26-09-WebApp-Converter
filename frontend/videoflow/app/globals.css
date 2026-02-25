@@ -68,21 +68,20 @@ html {
   }
 }
 
-/* mobile */
+
 @media (max-width: 640px) {
   .animate-track {
     animation-duration: 20s;
   }
 }
 
-/* tablet */
 @media (min-width: 641px) and (max-width: 1023px) {
   .animate-track {
     animation-duration: 22s;
   }
 }
 
-/* desktop */
+
 @media (min-width: 1024px) {
   .animate-track {
     animation-duration: 28s;
