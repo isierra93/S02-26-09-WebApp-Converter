@@ -21,7 +21,7 @@ public class VideoStorageService {
             Path filePath = Paths.get(UPLOAD_DIR + filename);
             Files.createDirectories(filePath.getParent());
             Files.write(filePath, file.getBytes());
-            return filePath.toString();
+            return filePath.toString().replace("\\", "/");
         } catch (IOException e) {
             throw new StorageException("Error al guardar el archivo.");
         }
