@@ -59,36 +59,31 @@ html {
   animation: scroll linear infinite;
 }
 
-
-@media (max-width: 640px) {
-  .animate-container {
-    height: 70px;
-    width: 100%;
+@keyframes scroll {
+  from {
+    transform: translateX(0);
   }
+  to {
+    transform: translateX(-50%);
+  }
+}
 
+/* mobile */
+@media (max-width: 640px) {
   .animate-track {
     animation-duration: 20s;
   }
 }
 
-/*media*/
+/* tablet */
 @media (min-width: 641px) and (max-width: 1023px) {
-  .animate-container {
-    height: 105px;
-    width: 100%;
-  }
-
   .animate-track {
     animation-duration: 22s;
   }
 }
 
-/*desktop */
+/* desktop */
 @media (min-width: 1024px) {
-  .animate-container {
-    height: 110px;
-  }
-
   .animate-track {
     animation-duration: 28s;
   }
