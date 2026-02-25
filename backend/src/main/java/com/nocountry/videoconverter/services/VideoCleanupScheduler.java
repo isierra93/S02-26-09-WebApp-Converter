@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -30,8 +32,15 @@ public class VideoCleanupScheduler {
 
         LocalDateTime cutoff = LocalDateTime.now().minusMinutes(30);
 
+        // Evitamos borrar jobs PENDING, PROCESSING y EXPIRED
+        List<JobStatus> excludedStatus = new ArrayList<>(Arrays.asList(
+                JobStatus.PENDING,
+                JobStatus.PROCESSING,
+                JobStatus.EXPIRED
+        ));
+
         List<ConversionJob> oldJobs =
-                conversionJobRepository.findByCreatedAtBeforeAndStatusNot(cutoff, JobStatus.PROCESSING);
+                conversionJobRepository.findByCreatedAtBeforeAndStatusNotIn(cutoff, excludedStatus);
 
         logger.info("Se encontraron {} jobs para limpieza", oldJobs.size());
 
@@ -43,9 +52,10 @@ public class VideoCleanupScheduler {
                 videoStorageService.delete(job.getInputUrl());
                 videoStorageService.delete(job.getOutputUrl());
 
-                conversionJobRepository.delete(job);
+                job.setStatus(JobStatus.EXPIRED);
+                conversionJobRepository.save(job);
 
-                logger.info("Job {} eliminado correctamente de disco y base de datos", job.getId());
+                logger.info("Job {} eliminado correctamente de disco y aplicada baja lógica", job.getId());
 
             } catch (IOException e) {
 

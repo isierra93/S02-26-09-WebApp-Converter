@@ -34,7 +34,7 @@ public class VideoStorageService {
 
             logger.info("Archivo guardado correctamente en ruta: {}", filePath);
 
-            return filePath.toString();
+            return filePath.toString().replace("\\", "/");
 
         } catch (IOException e) {
 
