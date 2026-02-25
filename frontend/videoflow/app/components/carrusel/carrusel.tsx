@@ -7,7 +7,7 @@ type ItemProps = {
 
 export default function Carrusel() {
     return (
-        <section className="bg-[#F2F2F7] py-3 sm:py-3.5 sponsor-container">
+        <section className="max-w-screen bg-[#F2F2F7] py-3 sm:py-3.5 sponsor-container">
             <div className="animate-track gap-26">
                 
                 <div className="flex gap-28 shrink-0">
@@ -16,7 +16,7 @@ export default function Carrusel() {
                     <Item>Reutiliza contenido</Item>
                     <Item>Ahorrá tiempo</Item>
                     <Item>
-                        Un video <ArrowRight size={16} />{" "}
+                        Un video <ArrowRight size={16} />
                         Varios shorts
                     </Item>
                 </div>
