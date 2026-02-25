@@ -3,6 +3,8 @@ package com.nocountry.videoconverter.controllers;
 import com.nocountry.videoconverter.entities.ConversionJob;
 import com.nocountry.videoconverter.services.ConversionJobService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,16 +16,42 @@ public class ConversionJobController {
 
     private final ConversionJobService conversionJobService;
 
+    private static final Logger logger = LoggerFactory.getLogger(ConversionJobController.class);
+
     @PostMapping(value = "/upload", consumes = "multipart/form-data")
     public ResponseEntity<?> uploadVideo(@RequestParam("file") MultipartFile file) {
-        ConversionJob video = conversionJobService.createJob(file);
-        return ResponseEntity.ok(video);
+
+        logger.info("Solicitud recibida para subir video: {}", file.getOriginalFilename());
+
+        try {
+            ConversionJob video = conversionJobService.createJob(file);
+
+            logger.info("Job creado exitosamente con ID: {}", video.getId());
+
+            return ResponseEntity.ok(video);
+
+        } catch (Exception e) {
+            logger.error("Error al crear job de conversión para archivo: {}",
+                    file.getOriginalFilename(), e);
+            throw e; // dejamos que el handler global lo maneje
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ConversionJob> getStatus(@PathVariable String id) {
-        ConversionJob job = conversionJobService.getJob(id);
-        return ResponseEntity.ok(job);
-    }
 
+        logger.info("Consulta de estado para job ID: {}", id);
+
+        try {
+            ConversionJob job = conversionJobService.getJob(id);
+
+            logger.debug("Estado actual del job {}: {}", id, job.getStatus());
+
+            return ResponseEntity.ok(job);
+
+        } catch (Exception e) {
+            logger.error("Error consultando estado del job ID: {}", id, e);
+            throw e;
+        }
+    }
 }
