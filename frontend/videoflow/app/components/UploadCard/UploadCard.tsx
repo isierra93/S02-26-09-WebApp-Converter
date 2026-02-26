@@ -1,9 +1,7 @@
 "use client";
-import { uploadVideo } from "@/app/services/video.service";
 import { useState, useRef, useEffect } from "react";
 import { FileVideoCamera } from "lucide-react";
 import UploadIcon from "../UI/icons/upload-icon";
-
 
 type UploadCardProps = {
     onUploadComplete?: (file: File) => void;
@@ -16,7 +14,7 @@ export default function UploadCard({ onUploadComplete }: UploadCardProps) {
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const completedTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const handleFile = async (selectedFile: File) => {
+    const handleFile = (selectedFile: File) => {
         if (!selectedFile.type.startsWith("video/")) {
             setError("Formatos compatibles: MP4-WebM-MOV-AVI");
             return;
@@ -26,45 +24,28 @@ export default function UploadCard({ onUploadComplete }: UploadCardProps) {
         setProgress(0);
         setStatus("uploading");
 
-        //animacion
+        //animación
         intervalRef.current = setInterval(() => {
             setProgress((prev) => {
-                if (prev >= 90) return prev; 
+                if (prev >= 100) return prev;
                 return prev + 5;
             });
         }, 150);
 
-        try {
-            const data = await uploadVideo(selectedFile);
-            console.log("Respuesta backend:", data);
-
-            // Cuando esta OK
+        // respuesta exitosa
+        completedTimeoutRef.current = setTimeout(() => {
             if (intervalRef.current) {
                 clearInterval(intervalRef.current);
             }
 
             setProgress(100);
             setStatus("completed");
-            //pasamos la confirmacion de la carga 
-            completedTimeoutRef.current = setTimeout(() => {
-                if (onUploadComplete) {
-                    onUploadComplete(selectedFile);
-                }
-            }, 1500);
-        } catch (error: unknown) {
-            if (intervalRef.current) {
-                clearInterval(intervalRef.current);
-            }
 
-            setStatus("idle");
-            setProgress(0);
-
-            if (error instanceof Error) {
-                setError(error.message);
-            } else {
-                setError("Ocurrió un error inesperado");
+            // avisamos al padre
+            if (onUploadComplete) {
+                onUploadComplete(selectedFile);
             }
-        }
+        }, 2000);
     };
 
     useEffect(() => {
@@ -78,7 +59,7 @@ export default function UploadCard({ onUploadComplete }: UploadCardProps) {
         };
     }, []);
     
-
+    //inicia-termina el error
     useEffect(() => {
         if (!error) return;
 

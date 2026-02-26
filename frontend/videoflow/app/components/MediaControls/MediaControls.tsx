@@ -36,7 +36,7 @@ export default function MediaControls({
     progressBarRef,
     setHoverTime,
 }: Props) {
-        //duración del video total
+    //duración del video total
     const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
     //duración del video y restante
     const formatTime = (time: number) => {
