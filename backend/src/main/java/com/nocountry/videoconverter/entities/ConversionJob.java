@@ -37,11 +37,14 @@ public class ConversionJob {
     @Enumerated(EnumType.STRING)
     private JobStatus status;
 
+    private String detailStatus;
+
     @PrePersist
     protected void onCreate(){
         this.outputUrl = "";
         this.createdAt = LocalDateTime.now();
         this.status = JobStatus.PENDING;
+        this.detailStatus = "Archivo recibido, pendiente de procesamiento";
     }
 
 }
