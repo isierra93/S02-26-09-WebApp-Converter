@@ -16,8 +16,8 @@ export default function CortoSuccess() {
     }, [router]);
 
     return (
-        <div className="mt-[80px] flex w-full justify-center px-[20px] sm:px-[48px] md:px-[156px] lg:px-[364px] xl:px-[364px] 2xl:px-[604px]">
-            <div className="w-full rounded-2xl border-[0.25px] border-gray-300/90 bg-[#F2F2F7] text-center shadow-[0px_4px_17.6px_0px_#0000001A] sm:w-[720px] md:w-[720px]">
+        <div className="mt-20 flex w-full justify-center px-5 sm:px-12 md:px-39 lg:px-91 2xl:px-151">
+            <div className="w-full rounded-2xl border-[0.25px] border-gray-300/90 bg-[#F2F2F7] text-center shadow-[0px_4px_17.6px_0px_#0000001A] sm:w-180 ">
                 <h2 className="my-20 text-[27px] font-semibold text-[#000000]">
                     Corto creado con éxito
                 </h2>

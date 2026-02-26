@@ -1,10 +1,11 @@
 "use client";
-
+import { uploadVideo, getConversionStatus } from "../services/video.service";
 import { useState } from "react";
 import UploadCard from "../components/UploadCard/UploadCard";
 import VideoEditor from "../components/VideoEditor/VideoEditor";
 import GeneratedVideo from "../components/GeneratedVideo/GeneratedVideo";
-import CortoSuccess from "../components/CortoSuccess/CortoSuccess";
+import Download from "../Download/page";
+
 
 const steps = ["Subir", "Seleccionar", "Generar", "Descargar"];
 
@@ -54,12 +55,48 @@ function Timeline({ currentStep }: { currentStep: number }) {
 export default function Upload() {
     const [currentStep, setCurrentStep] = useState(1);
     const [file, setFile] = useState<File | null>(null);
+    const [outputUrl, setOutputUrl] = useState<string | null>(null);
 
+    //generate
+    const handleGenerate = async () => {
+        if (!file) return;
+
+        try {
+            setCurrentStep(3);
+
+            const data = await uploadVideo(file);
+            const jobId = data.id;
+
+            const interval = setInterval(async () => {
+                try {
+                    const updated = await getConversionStatus(jobId);
+
+                    if (updated.status === "COMPLETED") {
+                        clearInterval(interval);
+                        setOutputUrl(
+                            `http://localhost:8080${updated.outputUrl}`
+                        );
+                        setCurrentStep(4);
+                    }
+
+                    if (updated.status === "FAILED") {
+                        clearInterval(interval);
+                        console.error("Falló la conversión");
+                    }
+                } catch (error) {
+                    console.error("Error consultando estado:", error);
+                    clearInterval(interval);
+                }
+            }, 2000);
+        } catch (error) {
+            console.error("Error subiendo video:", error);
+        }
+    };
     return (
         <>
             {/* Barra de progreso 1, 2, 3, 4 */}
 
-           <Timeline currentStep={currentStep} />
+            <Timeline currentStep={currentStep} />
 
             {currentStep === 1 && (
                 <UploadCard
@@ -71,16 +108,11 @@ export default function Upload() {
             )}
 
             {currentStep === 2 && file && (
-                <VideoEditor
-                    file={file}
-                    onGenerate={() => {
-                        setCurrentStep(3);
-                    }}
-                />
+                <VideoEditor file={file} onGenerate={handleGenerate} />
             )}
 
             {currentStep === 3 && (
-                <div className="text-center mt-10 text-lg font-semibold">
+                <div className="mt-10 text-center text-lg font-semibold">
                     <GeneratedVideo
                         onGenerate={() => {
                             setCurrentStep(4);
@@ -88,10 +120,8 @@ export default function Upload() {
                     />
                 </div>
             )}
-            {currentStep === 4 && (
-                <div className="text-center mt-10 text-lg font-semibold">
-                    <CortoSuccess />
-                </div>
+            {currentStep === 4 && outputUrl && (
+                <Download videoUrl={outputUrl} />
             )}
         </>
     );

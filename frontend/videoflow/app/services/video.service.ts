@@ -17,3 +17,13 @@ export async function uploadVideo(file: File) {
 
     return response.json();
 }
+
+export const getConversionStatus = async (id: string) => {
+    const response = await fetch(`http://localhost:8080/api/conversions/${id}`);
+
+    if (!response.ok) {
+        throw new Error("Error consultando estado");
+    }
+
+    return response.json();
+};
