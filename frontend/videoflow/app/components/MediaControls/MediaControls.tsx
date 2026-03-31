@@ -129,7 +129,7 @@ export default function MediaControls({
                 <div
                     ref={barRef}
                     className="relative flex h-3.75 w-full items-center touch-none"
-                
+
                 >
                     {/* fondo */}
                     <div className="absolute h-2.25 w-full rounded-full bg-indigo-300"></div>
@@ -192,7 +192,7 @@ export default function MediaControls({
                         onClick={onGenerate}
                         className="h-12.5 w-33 cursor-pointer rounded-[10px] bg-[#2F27CE] text-sm font-semibold text-[#FAFAFA]"
                     >
-                        generar corto
+                        Generar short!
                     </button>
                 </div>
             </div>

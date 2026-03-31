@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "video-flow",
-    description: "video-flow",
+  title: "Shortify",
+  description: "Shortify | Convierte tus videos largos en shorts",
 };
 
 export default function RootLayout({
@@ -26,18 +26,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html lang="en">
-            <body
-              className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
-            >
-              <header>
-                <Header />
-              </header>
-              <main className="flex-1">
-                {children}
-              </main>
-              <Footer />
-            </body>
-      </html>
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+      >
+        <header>
+          <Header />
+        </header>
+        <main className="flex-1">
+          {children}
+        </main>
+        <Footer />
+      </body>
+    </html>
   );
 }

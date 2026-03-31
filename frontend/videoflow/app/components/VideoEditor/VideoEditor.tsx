@@ -127,7 +127,7 @@ export default function VideoEditor({ file, onGenerate }: Props) {
             <div className="mx-auto w-full max-w-178 rounded-2xl border-[0.25px] border-gray-300/90 bg-[#F2F2F7] pb-8 shadow-[0px_4px_17.6px_0px_#0000001A]">
                 <video
                     ref={originalRef}
-                    className="w-full rounded-tl-2xl rounded-tr-2xl"
+                    className="w-full max-h-[60vh] object-contain rounded-tl-2xl rounded-tr-2xl bg-black"
                     src={videoUrl}
                     onLoadedMetadata={(e) =>
                         setDuration(e.currentTarget.duration)

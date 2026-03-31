@@ -154,7 +154,7 @@ export default function Download() {
                     <video
                         ref={videoRef}
                         src={videoUrl}
-                        className="h-full w-full rounded-xl object-cover"
+                        className="h-full w-full rounded-xl object-contain bg-black"
                         onTimeUpdate={(e) =>
                             setCurrentTime(e.currentTarget.currentTime)
                         }
