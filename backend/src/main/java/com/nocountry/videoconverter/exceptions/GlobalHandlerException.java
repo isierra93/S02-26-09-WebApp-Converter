@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 
@@ -31,6 +32,20 @@ public class GlobalHandlerException {
         );
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDto);
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ErrorDto> handleNoResourceFoundException(NoResourceFoundException e, HttpServletRequest request) {
+        logger.warn("Ruta o recurso no encontrado en {} {}: {}", request.getMethod(), request.getRequestURI(), e.getMessage() );
+
+        ErrorDto errorDto = new ErrorDto(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                request.getRequestURI(),
+                "El endpoint o recurso solicitado no existe"
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDto);
     }
 
     @ExceptionHandler(EmptyFileException.class)
