@@ -23,7 +23,7 @@ public class VideoStorageService {
 
     public String save(MultipartFile file) {
 
-        logger.info("Guardando archivo en almacenamiento local");
+        logger.info("Guardando archivo en almacenamiento local: {}", file.getOriginalFilename());
 
         try {
             String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
@@ -38,9 +38,9 @@ public class VideoStorageService {
 
         } catch (IOException e) {
 
-            logger.error("Error al guardar archivo en almacenamiento", e);
+            logger.error("Error al guardar archivo '{}' en almacenamiento", file.getOriginalFilename(), e);
 
-            throw new StorageException("Error al guardar el archivo.");
+            throw new StorageException("Error al guardar el archivo: " + file.getOriginalFilename(), e);
         }
     }
 
@@ -51,7 +51,7 @@ public class VideoStorageService {
             return;
         }
 
-        logger.info("Eliminando archivo con ruta: {}", pathStr);
+        logger.debug("Eliminando archivo con ruta: {}", pathStr);
 
         // La ruta /out/ es solo para la web, la fisica en disco es videos_procesados/
         if (pathStr.startsWith("/out/")) {
@@ -62,7 +62,7 @@ public class VideoStorageService {
 
         try {
             Files.deleteIfExists(path);
-            logger.info("Archivo eliminado correctamente: {}", path);
+            logger.debug("Archivo eliminado correctamente: {}", path);
 
         } catch (IOException e) {
 
