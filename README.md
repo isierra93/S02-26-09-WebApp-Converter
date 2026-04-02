@@ -1,4 +1,4 @@
-# <img src="https://img.icons8.com/fluency/48/video.png" width="32"/> VideoFlow — AI-Powered Vertical Video Converter
+# <img src="https://img.icons8.com/fluency/48/video.png" width="32"/> Shortify — AI-Powered Vertical Video Converter
 
 <div align="center">
 
@@ -20,9 +20,9 @@
 
 ---
 
-## ✨ ¿Qué hace VideoFlow?
+## ✨ ¿Qué hace Shortify?
 
-VideoFlow automatiza lo que un editor haría manualmente: convertir un video horizontal a formato vertical para redes sociales, **centrando inteligentemente al sujeto principal**.
+Shortify automatiza lo que un editor haría manualmente: convertir un video horizontal a formato vertical para redes sociales, **centrando inteligentemente al sujeto principal**.
 
 <table>
 <tr>
@@ -139,9 +139,9 @@ Esto levanta **4 servicios**:
 
 | Servicio | Puerto | Descripción |
 |---|---|---|
-| `videoflow-frontend` | `3000` | Interfaz web (Next.js) |
-| `videoflow-backend` | `8080` | API REST (Spring Boot) |
-| `videoflow-ai-service` | `8000` | Análisis de video (FastAPI + OpenCV) |
+| `shortify-frontend` | `3000` | Interfaz web (Next.js) |
+| `shortify-backend` | `8080` | API REST (Spring Boot) |
+| `shortify-ai-service` | `8000` | Análisis de video (FastAPI + OpenCV) |
 | `mysql-db-shortify` | `3306` | Base de datos (MySQL 8) |
 
 ### 3. Levantar sin IA
