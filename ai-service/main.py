@@ -38,6 +38,7 @@ app = FastAPI(
 # ---------------------------------------------------------------------------
 # Haar Cascade classifier (bundled with OpenCV — no download needed)
 # ---------------------------------------------------------------------------
+cv2.setNumThreads(1) # Obliga a OpenCV a usar un solo hilo
 CASCADE_PATH = cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
 face_cascade = cv2.CascadeClassifier(CASCADE_PATH)
 

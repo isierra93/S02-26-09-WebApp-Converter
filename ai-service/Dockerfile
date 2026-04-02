@@ -1,7 +1,6 @@
 # ==========================================
 # AI Video Analysis Service — Dockerfile
 # ==========================================
-# Multi-stage build to keep the final image lean.
 # Uses python:3.12-slim as base (small, no GUI needed).
 # opencv-python-headless avoids pulling in X11/GTK deps.
 # ==========================================
