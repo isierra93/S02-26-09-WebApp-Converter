@@ -109,6 +109,10 @@ public class VideoCutterService {
                         conversionJob.getId());
             }
 
+            // Forzamos a FFmpeg a usar un solo núcleo del procesador
+            command.add("-threads");
+            command.add("1");
+
             // 🔹 Sobrescribir si ya existe
             command.add("-y");
 
@@ -120,7 +124,8 @@ public class VideoCutterService {
             logger.debug("Ejecutando comando FFmpeg para job {}: {}",
                     conversionJob.getId(), pb.command());
 
-            pb.inheritIO();
+            pb.redirectOutput(ProcessBuilder.Redirect.DISCARD);
+            pb.redirectError(ProcessBuilder.Redirect.DISCARD);
 
             Process process = pb.start();
             int exitCode = process.waitFor();
