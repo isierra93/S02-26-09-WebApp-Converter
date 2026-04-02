@@ -26,8 +26,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./backend/videos:/app/videos
-      - ./backend/videos_procesados:/app/videos_procesados
+      - backend_videos:/app/videos
+      - backend_videos_procesados:/app/videos_procesados
       # Volumen compartido con ai-service: el backend guarda aquí los videos subidos
       - shared_videos:/app/videos_subidos
     depends_on:
@@ -48,15 +48,16 @@ services:
     build:
       context: ./frontend/videoflow
       dockerfile: Dockerfile
+      args:
+        # Se requiere en build time para Next.js
+        NEXT_PUBLIC_API_URL: http://localhost:8080
     container_name: frontend
     ports:
       - "3000:3000"
     depends_on:
       - backend
     environment:
-      # TODO: Descomentar y ajustar cuando el frontend necesite conectarse al backend
-      - NEXT_PUBLIC_API_URL=http://localhost:8080
-      - NODE_ENV=development
+      - NODE_ENV=production
 
   # -----------------------------------------------------------------------
   # AI Service (Python + FastAPI + OpenCV)
@@ -90,5 +91,7 @@ services:
 
 volumes:
   mysql_data:
+  backend_videos:
+  backend_videos_procesados:
   # Volumen compartido entre backend y ai-service
   shared_videos:
